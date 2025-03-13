@@ -13,9 +13,9 @@
                 {
                     if (i != j)
                     {
-                        (int wins1, int wins2) = CompareDice(diceList[i], diceList[j]);
-                        double totalBattles = wins1 + wins2;
-                        winProbabilities[i, j] = totalBattles == 0 ? 0.5 : wins1 / totalBattles;
+                        int wins1 = CompareDice(diceList[i], diceList[j]);
+                        int totalBattles = diceList[i].values.Count * diceList[j].values.Count;
+                        winProbabilities[i, j] = totalBattles = wins1 / totalBattles;
                     }
                 }
             }
@@ -23,20 +23,9 @@
             return winProbabilities;
         }
 
-        private static (int, int) CompareDice(Dice dice1, Dice dice2)
+        private static int CompareDice(Dice dice1, Dice dice2)
         {
-            int wins1 = 0, wins2 = 0;
-
-            foreach (int value1 in dice1.values)
-            {
-                foreach (int value2 in dice2.values)
-                {
-                    if (value1 > value2) wins1++;
-                    else if (value2 > value1) wins2++;
-                }
-            }
-
-            return (wins1, wins2);
+            return dice1.values.SelectMany(_ => dice2.values, (value1, value2) => value1 > value2).Count(value1 => value1);
         }
     }
 }
