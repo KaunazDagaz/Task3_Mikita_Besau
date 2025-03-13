@@ -14,7 +14,7 @@
                     if (i != j)
                     {
                         int wins1 = CompareDice(diceList[i], diceList[j]);
-                        int totalBattles = diceList[i].values.Count * diceList[j].values.Count;
+                        double totalBattles = diceList[i].values.Count * diceList[j].values.Count;
                         winProbabilities[i, j] = totalBattles = wins1 / totalBattles;
                     }
                 }
